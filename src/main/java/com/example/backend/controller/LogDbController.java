@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.backend.dto.AlertStatusDto;
 import com.example.backend.entity.AlertEntity;
+import com.example.backend.entity.HDFSEntity;
 import org.apache.catalina.connector.Response;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -32,11 +33,12 @@ public class LogDbController {
             @RequestParam(required = false, defaultValue = "2147483647000") Long time_end)
             throws IOException
     {
-        Query query = Query.query(Criteria.where("time")
+        
+        Query query = Query.query(Criteria.where("Time")
                 .lte(time_end)
                 .gte(time_start)
         );
-        List<AlertEntity> resultList = mongoTemplate.find(query, AlertEntity.class, dataset);
+        List<HDFSEntity> resultList = mongoTemplate.findAll(HDFSEntity.class);
 //        System.out.println(resultList);
         return new ResponseEntity<String>(JSON.toJSONString(resultList), HttpStatus.OK);
     }
