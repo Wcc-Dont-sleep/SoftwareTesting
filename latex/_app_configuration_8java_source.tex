@@ -1,0 +1,26 @@
+\hypertarget{_app_configuration_8java_source}{}\doxysection{App\+Configuration.\+java}
+\label{_app_configuration_8java_source}\index{src/main/java/com/example/backend/configuration/AppConfiguration.java@{src/main/java/com/example/backend/configuration/AppConfiguration.java}}
+\mbox{\hyperlink{_app_configuration_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00001}\mbox{\hyperlink{namespacecom_1_1example_1_1backend_1_1configuration}{00001}}\ \textcolor{keyword}{package\ }com.example.backend.configuration;}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00003}00003\ \textcolor{keyword}{import}\ org.springframework.context.annotation.Bean;}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00004}00004\ \textcolor{keyword}{import}\ org.springframework.context.annotation.Configuration;}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00005}00005\ \textcolor{keyword}{import}\ org.springframework.web.servlet.config.annotation.CorsRegistry;}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00006}00006\ \textcolor{keyword}{import}\ org.springframework.web.servlet.config.annotation.WebMvcConfigurer;}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00008}00008\ @Configuration}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00009}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1configuration_1_1_app_configuration}{00009}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1configuration_1_1_app_configuration}{AppConfiguration}}\ \ \textcolor{keyword}{implements}\ WebMvcConfigurer\ \{}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00010}00010\ \ \ \ \ @Override}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00011}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1configuration_1_1_app_configuration_a235775fe48664b756b9d0c2b1bd16d5b}{00011}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1configuration_1_1_app_configuration_a235775fe48664b756b9d0c2b1bd16d5b}{addCorsMappings}}(CorsRegistry\ registry)\ \{}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00012}00012\ \ \ \ \ \ \ \ \ registry.addMapping(\textcolor{stringliteral}{"{}/**"{}})}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00013}00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .allowedOriginPatterns(\textcolor{stringliteral}{"{}*"{}})}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .allowedOrigins(\textcolor{stringliteral}{"{}http://localhost:3000"{}})}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .allowedMethods(\textcolor{stringliteral}{"{}GET"{}},\ \textcolor{stringliteral}{"{}HEAD"{}},\ \textcolor{stringliteral}{"{}POST"{}},\ \textcolor{stringliteral}{"{}PUT"{}},\ \textcolor{stringliteral}{"{}DELETE"{}},\ \textcolor{stringliteral}{"{}OPTIONS"{}})\ \textcolor{comment}{//\ 允许跨域的方法，可以单独配置}}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .allowCredentials(\textcolor{keyword}{true})}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .maxAge(3600)}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .allowedHeaders(\textcolor{stringliteral}{"{}*"{}});}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00019}00019\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_app_configuration_8java_source_l00020}00020\ \}}
+
+\end{DoxyCode}

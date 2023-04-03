@@ -1,0 +1,70 @@
+\hypertarget{_alert_controller_8java_source}{}\doxysection{Alert\+Controller.\+java}
+\label{_alert_controller_8java_source}\index{src/main/java/com/example/backend/controller/AlertController.java@{src/main/java/com/example/backend/controller/AlertController.java}}
+\mbox{\hyperlink{_alert_controller_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00001}\mbox{\hyperlink{namespacecom_1_1example_1_1backend_1_1controller}{00001}}\ \textcolor{keyword}{package\ }com.example.backend.controller;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00003}00003\ \textcolor{keyword}{import}\ com.alibaba.fastjson.JSON;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00004}00004\ \textcolor{keyword}{import}\ com.alibaba.fastjson.JSONArray;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00005}00005\ \textcolor{keyword}{import}\ com.alibaba.fastjson.JSONObject;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00006}00006\ \textcolor{keyword}{import}\ com.example.backend.dto.AlertStatusDto;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00007}00007\ \textcolor{keyword}{import}\ com.example.backend.entity.AlertEntity;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00008}00008\ \textcolor{keyword}{import}\ org.apache.catalina.connector.Response;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00009}00009\ \textcolor{keyword}{import}\ org.apache.commons.httpclient.HttpClient;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00010}00010\ \textcolor{keyword}{import}\ org.apache.commons.httpclient.methods.GetMethod;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00011}00011\ \textcolor{keyword}{import}\ org.springframework.beans.factory.annotation.Autowired;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00012}00012\ \textcolor{keyword}{import}\ org.springframework.data.mongodb.core.MongoTemplate;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00013}00013\ \textcolor{keyword}{import}\ org.springframework.data.mongodb.core.query.Criteria;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00014}00014\ \textcolor{keyword}{import}\ org.springframework.data.mongodb.core.query.Query;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00015}00015\ \textcolor{keyword}{import}\ org.springframework.data.mongodb.core.query.Update;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00016}00016\ \textcolor{keyword}{import}\ org.springframework.http.HttpStatus;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00017}00017\ \textcolor{keyword}{import}\ org.springframework.http.ResponseEntity;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00018}00018\ \textcolor{keyword}{import}\ org.springframework.web.bind.annotation.*;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00020}00020\ \textcolor{keyword}{import}\ java.io.IOException;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00021}00021\ \textcolor{keyword}{import}\ java.util.ArrayList;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00022}00022\ \textcolor{keyword}{import}\ java.util.List;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00025}00025\ @RestController}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00026}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_alert_controller}{00026}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_alert_controller}{AlertController}}\ \{}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00028}00028\ \ \ \ \ @Autowired}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00029}00029\ \ \ \ \ MongoTemplate\ mongoTemplate;}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00031}00031\ \ \ \ \ @RequestMapping(value\ =\ \textcolor{stringliteral}{"{}alarms"{}},\ method\ =\ RequestMethod.GET)}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00032}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_alert_controller_afc213008b14bb81c8519818de8e7eb72}{00032}}\ \ \ \ \ public\ ResponseEntity<String>\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_alert_controller_afc213008b14bb81c8519818de8e7eb72}{getAlerts}}(}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ @RequestParam(required\ =\ false,\ defaultValue\ =\ "{}0"{})\ Long\ start\_time,}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ @RequestParam(required\ =\ false,\ defaultValue\ =\ "{}999999999"{})\ Long\ end\_time)}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ throws\ IOException}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00036}00036\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00037}00037\ \ \ \ \ \ \ \ \ Query\ query\ =\ Query.query(Criteria.where(\textcolor{stringliteral}{"{}time"{}})}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .lte(end\_time)}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .gte(start\_time)}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00040}00040\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00042}00042\ \ \ \ \ \ \ \ \ List<AlertEntity>\ resultList\ =\ mongoTemplate.find(query,\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity}{AlertEntity}}.class);}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity<String>(JSON.toJSONString(resultList),\ HttpStatus.OK);}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00044}00044\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00046}00046\ \ \ \ \ @RequestMapping(value\ =\ \textcolor{stringliteral}{"{}alarm"{}},\ method\ =\ RequestMethod.POST)}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00047}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_alert_controller_ae6e349a4b6d1a468a5fe482192897027}{00047}}\ \ \ \ \ public\ ResponseEntity\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_alert_controller_ae6e349a4b6d1a468a5fe482192897027}{postAlerts}}(}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ @RequestBody\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_alert_status_dto}{AlertStatusDto}}\ body}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00049}00049\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00050}00050\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00051}00051\ \ \ \ \ \ \ \ \ Query\ query\ =\ Query.query(Criteria.where(\textcolor{stringliteral}{"{}id"{}})}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .is(body.getId())}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00053}00053\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00055}00055\ \ \ \ \ \ \ \ \ List<AlertEntity>\ list\ =\ mongoTemplate.find(query,\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity}{AlertEntity}}.class);}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (list.size()\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity(HttpStatus.NOT\_FOUND);}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00058}00058\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ Update\ update\ =\ Update.update(\textcolor{stringliteral}{"{}status"{}},\ body.getStatus());}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ mongoTemplate.updateFirst(query,\ update,\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity}{AlertEntity}}.class);}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity(HttpStatus.OK);}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00062}00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00063}00063\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_alert_controller_8java_source_l00064}00064\ \}}
+
+\end{DoxyCode}

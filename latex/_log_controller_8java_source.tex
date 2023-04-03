@@ -1,0 +1,217 @@
+\hypertarget{_log_controller_8java_source}{}\doxysection{Log\+Controller.\+java}
+\label{_log_controller_8java_source}\index{src/main/java/com/example/backend/controller/LogController.java@{src/main/java/com/example/backend/controller/LogController.java}}
+\mbox{\hyperlink{_log_controller_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00001}00001\ \textcolor{keyword}{package\ }com.example.backend.controller;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00003}00003\ \textcolor{keyword}{import}\ com.alibaba.fastjson.JSONArray;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00004}00004\ \textcolor{keyword}{import}\ com.alibaba.fastjson.JSONObject;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00005}00005\ \textcolor{keyword}{import}\ org.apache.commons.httpclient.HttpClient;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00006}00006\ \textcolor{keyword}{import}\ org.apache.commons.httpclient.methods.InputStreamRequestEntity;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00007}00007\ \textcolor{keyword}{import}\ org.apache.commons.httpclient.methods.PostMethod;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00008}00008\ \textcolor{keyword}{import}\ org.apache.commons.httpclient.methods.RequestEntity;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00009}00009\ \textcolor{keyword}{import}\ org.slf4j.Logger;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00010}00010\ \textcolor{keyword}{import}\ org.slf4j.LoggerFactory;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00011}00011\ \textcolor{keyword}{import}\ org.springframework.http.HttpStatus;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00012}00012\ \textcolor{keyword}{import}\ org.springframework.http.ResponseEntity;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00013}00013\ \textcolor{keyword}{import}\ org.springframework.web.bind.annotation.RequestMapping;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00014}00014\ \textcolor{keyword}{import}\ org.springframework.web.bind.annotation.RequestMethod;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00015}00015\ \textcolor{keyword}{import}\ org.springframework.web.bind.annotation.RequestParam;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00016}00016\ \textcolor{keyword}{import}\ org.springframework.web.bind.annotation.RestController;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00018}00018\ \textcolor{keyword}{import}\ java.io.ByteArrayInputStream;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00019}00019\ \textcolor{keyword}{import}\ java.io.IOException;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00020}00020\ \textcolor{keyword}{import}\ java.io.InputStream;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00021}00021\ \textcolor{keyword}{import}\ java.text.SimpleDateFormat;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00022}00022\ \textcolor{keyword}{import}\ java.util.ArrayList;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00023}00023\ \textcolor{keyword}{import}\ java.util.Date;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00024}00024\ \textcolor{keyword}{import}\ java.util.TimeZone;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00026}00026\ \textcolor{keyword}{import}\ \textcolor{keyword}{static}\ java.lang.Math.abs;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00028}00028\ @RestController}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00029}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_log_controller}{00029}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_log_controller}{LogController}}\ \{}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00030}00030\ \ \ \ \ \textcolor{keyword}{private}\ String\ baseUrl\ =\ \textcolor{stringliteral}{"{}http://10.60.38.174:31016/\_search"{}};}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00031}00031\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keyword}{final}\ Logger\ logger\ =\ LoggerFactory.getLogger(this.getClass());}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00033}00033\ \ \ \ \ @RequestMapping(value\ =\ \textcolor{stringliteral}{"{}log"{}},\ method\ =\ RequestMethod.GET)}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00034}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_log_controller_a77045f2d4ace482f443549ff6294f1a3}{00034}}\ \ \ \ \ public\ ResponseEntity<String>\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_log_controller_a77045f2d4ace482f443549ff6294f1a3}{getLogs}}(}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ @RequestParam(required\ =\ false)\ String\ dataset,}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ @RequestParam(required\ =\ false)\ String\ model,}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ @RequestParam(required\ =\ false,\ defaultValue\ =\ "{}0"{})\ Long\ time\_start,}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ @RequestParam(required\ =\ false,\ defaultValue\ =\ "{}2147483647000"{})\ Long\ time\_end)}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ throws\ IOException\ \{}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00040}00040\ \ \ \ \ \ \ \ \ String\ url\ =\ baseUrl;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00042}00042\ \ \ \ \ \ \ \ \ SimpleDateFormat\ sdf=\textcolor{keyword}{new}\ SimpleDateFormat(\textcolor{stringliteral}{"{}yyyy-\/MM-\/dd'T'HH:mm:ss"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00043}00043\ \ \ \ \ \ \ \ \ String\ start\ =\ sdf.format(\textcolor{keyword}{new}\ Date(Long.parseLong(String.valueOf(time\_start\ *\ 1000))));}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00044}00044\ \ \ \ \ \ \ \ \ String\ end\ =\ sdf.format(\textcolor{keyword}{new}\ Date(Long.parseLong(String.valueOf(time\_end\ *\ 1000))));}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00046}00046\ \ \ \ \ \ \ \ \ JSONObject\ jsonObject\ =\ \textcolor{keyword}{new}\ JSONObject();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00047}00047\ \ \ \ \ \ \ \ \ jsonObject.put(\textcolor{stringliteral}{"{}query"{}},\ \textcolor{keyword}{new}\ JSONObject());}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00048}00048\ \ \ \ \ \ \ \ \ jsonObject.put(\textcolor{stringliteral}{"{}fields"{}},\ \textcolor{keyword}{new}\ JSONArray());}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00049}00049\ \ \ \ \ \ \ \ \ jsonObject.getJSONObject(\textcolor{stringliteral}{"{}query"{}}).put(\textcolor{stringliteral}{"{}range"{}},\ \textcolor{keyword}{new}\ JSONObject());}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00050}00050\ \ \ \ \ \ \ \ \ jsonObject.getJSONObject(\textcolor{stringliteral}{"{}query"{}}).getJSONObject(\textcolor{stringliteral}{"{}range"{}}).put(\textcolor{stringliteral}{"{}@timestamp"{}},\ \textcolor{keyword}{new}\ JSONObject());}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00051}00051\ \ \ \ \ \ \ \ \ jsonObject.getJSONObject(\textcolor{stringliteral}{"{}query"{}}).getJSONObject(\textcolor{stringliteral}{"{}range"{}}).getJSONObject(\textcolor{stringliteral}{"{}@timestamp"{}}).put(\textcolor{stringliteral}{"{}gte"{}},\ start);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00052}00052\ \ \ \ \ \ \ \ \ jsonObject.getJSONObject(\textcolor{stringliteral}{"{}query"{}}).getJSONObject(\textcolor{stringliteral}{"{}range"{}}).getJSONObject(\textcolor{stringliteral}{"{}@timestamp"{}}).put(\textcolor{stringliteral}{"{}lt"{}},\ end);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00053}00053\ \ \ \ \ \ \ \ \ JSONObject\ jsonObject1\ =\ \textcolor{keyword}{new}\ JSONObject();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00054}00054\ \ \ \ \ \ \ \ \ jsonObject1.put(\textcolor{stringliteral}{"{}field"{}},\ \textcolor{stringliteral}{"{}@timestamp"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00055}00055\ \ \ \ \ \ \ \ \ jsonObject.getJSONArray(\textcolor{stringliteral}{"{}fields"{}}).add(jsonObject1);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00057}00057\ \ \ \ \ \ \ \ \ String\ jsonData\ =\ jsonObject.toString();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00058}00058\ \textcolor{comment}{//\ \ \ \ \ \ \ \ logger.info(jsonData);}}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ HttpClient\ httpClient\ =\ \textcolor{keyword}{new}\ HttpClient();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(15000);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ PostMethod\ postMethod\ =\ \textcolor{keyword}{new}\ PostMethod(url);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ postMethod.addRequestHeader(\textcolor{stringliteral}{"{}Content-\/type"{}},\ \textcolor{stringliteral}{"{}application/json;\ charset=utf-\/8"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{byte}[]\ requestBytes\ =\ jsonData.getBytes(\textcolor{stringliteral}{"{}utf-\/8"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ InputStream\ inputStream\ =\ \textcolor{keyword}{new}\ ByteArrayInputStream(requestBytes,\ 0,\ requestBytes.length);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ RequestEntity\ requestEntity\ =\ \textcolor{keyword}{new}\ InputStreamRequestEntity(inputStream,\ requestBytes.length,\ \textcolor{stringliteral}{"{}application/json;\ charset=utf-\/8"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ postMethod.setRequestEntity(requestEntity);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ httpClient.executeMethod(postMethod);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{byte}[]\ responseBody\ =\ postMethod.getResponseBody();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ String\ s\ =\ \textcolor{keyword}{new}\ String(responseBody);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ JSONObject\ response\ =\ JSONObject.parseObject(s);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00076}00076\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ System.out.println(response);}}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ JSONObject\ result\ =\ \textcolor{keyword}{new}\ JSONObject();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ tot\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ num\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ ArrayList<Integer>\ arrayList\ =\ \textcolor{keyword}{new}\ ArrayList<Integer>();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ result.put(\textcolor{stringliteral}{"{}logging"{}},\ \textcolor{keyword}{new}\ JSONArray());}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ JSONArray\ infoArray\ =\ response.getJSONObject(\textcolor{stringliteral}{"{}hits"{}}).getJSONArray(\textcolor{stringliteral}{"{}hits"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ infoArray.size();\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JSONObject\ source\ =\ infoArray.getJSONObject(j).getJSONObject(\textcolor{stringliteral}{"{}\_source"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JSONObject\ tem\ =\ \textcolor{keyword}{new}\ JSONObject();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ pattern\ =\ \textcolor{stringliteral}{"{}yyyy-\/MM-\/dd'T'HH:mm:ss.SSS'Z'"{}};}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SimpleDateFormat\ simpleDateFormat\ =\ \textcolor{keyword}{new}\ SimpleDateFormat(pattern);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ simpleDateFormat.setTimeZone(TimeZone.getTimeZone(\textcolor{stringliteral}{"{}UTC"{}}));}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ date\ =\ source.getString(\textcolor{stringliteral}{"{}@timestamp"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ message\ =\ source.getString(\textcolor{stringliteral}{"{}message"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tem.put(\textcolor{stringliteral}{"{}time"{}},\ simpleDateFormat.parse(date));}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tem.put(\textcolor{stringliteral}{"{}content"{}},\ message);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ message\_hash\ =\ message\ +\ dataset\ +\ model;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ score\ =\ abs(message\_hash.hashCode())\ \%\ 100\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tot\ +=\ score;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num++;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ arrayList.add(score);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tem.put(\textcolor{stringliteral}{"{}score"{}},\ score);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result.getJSONArray(\textcolor{stringliteral}{"{}logging"{}}).add(tem);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ Double\ probability;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ Double\ threshold;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (num\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Double\ mean\ =\ Double.valueOf(tot)\ /\ Double.valueOf(num);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Double\ sum\_sqare\_diff\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ sco\ :\ arrayList)\ \{}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sum\_sqare\_diff\ +=\ Double.valueOf((sco\ -\/\ mean)\ *\ (sco\ -\/\ mean));}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Double\ sta\ =\ Math.sqrt(sum\_sqare\_diff\ /\ num);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ threshold\ =\ mean\ +\ 1\ *\ sta;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Double\ count\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ sco\ :\ arrayList)\ \{}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sco\ >\ threshold)\ count++;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ probability\ =\ count\ /\ num;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ probability\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ threshold\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ result.put(\textcolor{stringliteral}{"{}probability"{}},\ probability);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ result.put(\textcolor{stringliteral}{"{}threshold"{}},\ threshold);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity<String>(result.toString(),\ HttpStatus.OK);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00132}00132\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (Exception\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ e.printStackTrace();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity<>(HttpStatus.GATEWAY\_TIMEOUT);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00135}00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00136}00136\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00138}00138\ \ \ \ \ @RequestMapping(value\ =\ \textcolor{stringliteral}{"{}log/node"{}},\ method\ =\ RequestMethod.GET)}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00139}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_log_controller_ac9413fd1c9f651649538fbb0c844e42e}{00139}}\ \ \ \ \ public\ ResponseEntity<String>\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_log_controller_ac9413fd1c9f651649538fbb0c844e42e}{getLogsByNode}}(}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ @RequestParam(required\ =\ false,\ defaultValue\ =\ "{}0"{})\ Long\ time\_start,}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ @RequestParam(required\ =\ false,\ defaultValue\ =\ "{}2147483647000"{})\ Long\ time\_end,}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ @RequestParam(required\ =\ false)\ String\ entity\_id)}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ throws\ IOException\ \{}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00144}00144\ \ \ \ \ \ \ \ \ String\ url\ =\ baseUrl;}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00146}00146\ \ \ \ \ \ \ \ \ SimpleDateFormat\ sdf=\textcolor{keyword}{new}\ SimpleDateFormat(\textcolor{stringliteral}{"{}yyyy-\/MM-\/dd'T'HH:mm:ss"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00147}00147\ \ \ \ \ \ \ \ \ String\ start\ =\ sdf.format(\textcolor{keyword}{new}\ Date(Long.parseLong(String.valueOf(time\_start\ *\ 1000))));}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00148}00148\ \ \ \ \ \ \ \ \ String\ end\ =\ sdf.format(\textcolor{keyword}{new}\ Date(Long.parseLong(String.valueOf(time\_end\ *\ 1000))));}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00150}00150\ \ \ \ \ \ \ \ \ JSONObject\ jsonObject\ =\ \textcolor{keyword}{new}\ JSONObject();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00151}00151\ \ \ \ \ \ \ \ \ jsonObject.put(\textcolor{stringliteral}{"{}query"{}},\ \textcolor{keyword}{new}\ JSONObject());}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00152}00152\ \ \ \ \ \ \ \ \ jsonObject.put(\textcolor{stringliteral}{"{}fields"{}},\ \textcolor{keyword}{new}\ JSONArray());}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00153}00153\ \ \ \ \ \ \ \ \ jsonObject.getJSONObject(\textcolor{stringliteral}{"{}query"{}}).put(\textcolor{stringliteral}{"{}range"{}},\ \textcolor{keyword}{new}\ JSONObject());}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00154}00154\ \ \ \ \ \ \ \ \ jsonObject.getJSONObject(\textcolor{stringliteral}{"{}query"{}}).getJSONObject(\textcolor{stringliteral}{"{}range"{}}).put(\textcolor{stringliteral}{"{}@timestamp"{}},\ \textcolor{keyword}{new}\ JSONObject());}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00155}00155\ \ \ \ \ \ \ \ \ jsonObject.getJSONObject(\textcolor{stringliteral}{"{}query"{}}).getJSONObject(\textcolor{stringliteral}{"{}range"{}}).getJSONObject(\textcolor{stringliteral}{"{}@timestamp"{}}).put(\textcolor{stringliteral}{"{}gte"{}},\ start);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00156}00156\ \ \ \ \ \ \ \ \ jsonObject.getJSONObject(\textcolor{stringliteral}{"{}query"{}}).getJSONObject(\textcolor{stringliteral}{"{}range"{}}).getJSONObject(\textcolor{stringliteral}{"{}@timestamp"{}}).put(\textcolor{stringliteral}{"{}lt"{}},\ end);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00157}00157\ \ \ \ \ \ \ \ \ JSONObject\ jsonObject1\ =\ \textcolor{keyword}{new}\ JSONObject();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00158}00158\ \ \ \ \ \ \ \ \ jsonObject1.put(\textcolor{stringliteral}{"{}field"{}},\ \textcolor{stringliteral}{"{}@timestamp"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00159}00159\ \ \ \ \ \ \ \ \ jsonObject.getJSONArray(\textcolor{stringliteral}{"{}fields"{}}).add(jsonObject1);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00161}00161\ \ \ \ \ \ \ \ \ String\ jsonData\ =\ jsonObject.toString();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00162}00162\ \textcolor{comment}{//\ \ \ \ \ \ \ \ logger.info(jsonData);}}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00164}00164\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ HttpClient\ httpClient\ =\ \textcolor{keyword}{new}\ HttpClient();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(15000);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ PostMethod\ postMethod\ =\ \textcolor{keyword}{new}\ PostMethod(url);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ postMethod.addRequestHeader(\textcolor{stringliteral}{"{}Content-\/type"{}},\ \textcolor{stringliteral}{"{}application/json;\ charset=utf-\/8"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{byte}[]\ requestBytes\ =\ jsonData.getBytes(\textcolor{stringliteral}{"{}utf-\/8"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ InputStream\ inputStream\ =\ \textcolor{keyword}{new}\ ByteArrayInputStream(requestBytes,\ 0,\ requestBytes.length);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ RequestEntity\ requestEntity\ =\ \textcolor{keyword}{new}\ InputStreamRequestEntity(inputStream,\ requestBytes.length,\ \textcolor{stringliteral}{"{}application/json;\ charset=utf-\/8"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ postMethod.setRequestEntity(requestEntity);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ httpClient.executeMethod(postMethod);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{byte}[]\ responseBody\ =\ postMethod.getResponseBody();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ String\ s\ =\ \textcolor{keyword}{new}\ String(responseBody);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ JSONObject\ response\ =\ JSONObject.parseObject(s);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00180}00180\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ System.out.println(response);}}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ JSONArray\ result\ =\ \textcolor{keyword}{new}\ JSONArray();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ JSONArray\ infoArray\ =\ response.getJSONObject(\textcolor{stringliteral}{"{}hits"{}}).getJSONArray(\textcolor{stringliteral}{"{}hits"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ infoArray.size();\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JSONObject\ host\ =\ infoArray.getJSONObject(j).getJSONObject(\textcolor{stringliteral}{"{}\_source"{}}).getJSONObject(\textcolor{stringliteral}{"{}host"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (host\ ==\ \textcolor{keyword}{null}\ \&\&\ entity\_id\ !=\ \textcolor{keyword}{null})\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ \textcolor{keywordtype}{id}\ =\ host.getString(\textcolor{stringliteral}{"{}name"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (entity\_id\ !=\ \textcolor{keyword}{null}\ \&\&\ !\textcolor{keywordtype}{id}.equals(entity\_id))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JSONObject\ source\ =\ infoArray.getJSONObject(j).getJSONObject(\textcolor{stringliteral}{"{}\_source"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JSONObject\ tem\ =\ \textcolor{keyword}{new}\ JSONObject();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ pattern\ =\ \textcolor{stringliteral}{"{}yyyy-\/MM-\/dd'T'HH:mm:ss.SSS'Z'"{}};}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SimpleDateFormat\ simpleDateFormat\ =\ \textcolor{keyword}{new}\ SimpleDateFormat(pattern);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ simpleDateFormat.setTimeZone(TimeZone.getTimeZone(\textcolor{stringliteral}{"{}UTC"{}}));}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ date\ =\ source.getString(\textcolor{stringliteral}{"{}@timestamp"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ message\ =\ source.getString(\textcolor{stringliteral}{"{}message"{}});}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tem.put(\textcolor{stringliteral}{"{}time"{}},\ simpleDateFormat.parse(date));}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tem.put(\textcolor{stringliteral}{"{}content"{}},\ message);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result.add(tem);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity<String>(result.toString(),\ HttpStatus.OK);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00206}00206\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (Exception\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ e.printStackTrace();}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity<>(HttpStatus.GATEWAY\_TIMEOUT);}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00209}00209\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00210}00210\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_log_controller_8java_source_l00211}00211\ \}}
+
+\end{DoxyCode}

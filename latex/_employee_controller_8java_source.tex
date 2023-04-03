@@ -1,0 +1,143 @@
+\hypertarget{_employee_controller_8java_source}{}\doxysection{Employee\+Controller.\+java}
+\label{_employee_controller_8java_source}\index{src/main/java/com/example/backend/controller/EmployeeController.java@{src/main/java/com/example/backend/controller/EmployeeController.java}}
+\mbox{\hyperlink{_employee_controller_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00001}00001\ \textcolor{keyword}{package\ }com.example.backend.controller;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00003}00003\ \textcolor{keyword}{import}\ com.alibaba.fastjson.JSONObject;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00004}00004\ \textcolor{keyword}{import}\ com.example.backend.dto.*;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00005}00005\ \textcolor{keyword}{import}\ com.example.backend.service.EmployeeService;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00006}00006\ \textcolor{keyword}{import}\ org.apache.commons.httpclient.HttpClient;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00007}00007\ \textcolor{keyword}{import}\ org.apache.commons.httpclient.methods.PostMethod;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00008}00008\ \textcolor{keyword}{import}\ org.modelmapper.ModelMapper;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00009}00009\ \textcolor{keyword}{import}\ org.springframework.beans.factory.annotation.Autowired;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00010}00010\ \textcolor{keyword}{import}\ org.springframework.beans.factory.annotation.Value;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00011}00011\ \textcolor{keyword}{import}\ org.springframework.http.HttpStatus;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00012}00012\ \textcolor{keyword}{import}\ org.springframework.http.ResponseEntity;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00013}00013\ \textcolor{keyword}{import}\ org.springframework.web.bind.annotation.*;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00015}00015\ \textcolor{keyword}{import}\ java.awt.*;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00016}00016\ \textcolor{keyword}{import}\ java.io.IOException;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00017}00017\ \textcolor{keyword}{import}\ java.util.List;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00019}00019\ @RestController}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00020}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller}{00020}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller}{EmployeeController}}\ \{}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00021}00021\ \ \ \ \ \textcolor{keyword}{private}\ String\ baseUrl\ =\ \textcolor{stringliteral}{"{}http://39.98.47.69:8000/"{}};}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00022}00022\ \ \ \ \ \textcolor{keyword}{private}\ String\ authorization\ =\ \textcolor{stringliteral}{"{}Basic\ ODAwZTA2ODg5NGFiZjVkMmQ0MTE6Y2ZmODhmYWJlMGJiMDY3Y2I1NmM2OGQ4ZmUzZjk0MWY0ODJmMmU5Yg=="{}};}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00023}00023\ \ \ \ \ \textcolor{keyword}{private}\ HttpClient\ client\ =\ \textcolor{keyword}{new}\ HttpClient();}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00024}00024\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{interfacecom_1_1example_1_1backend_1_1service_1_1_employee_service}{EmployeeService}}\ employeeService;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00026}00026\ \ \ \ \ @Autowired}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00027}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ad041eb34f36596943ea71cbffed77474}{00027}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ad041eb34f36596943ea71cbffed77474}{EmployeeController}}(\mbox{\hyperlink{interfacecom_1_1example_1_1backend_1_1service_1_1_employee_service}{EmployeeService}}\ employeeService)\ \{}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00028}00028\ \ \ \ \ \ \ \ \ this.employeeService\ =\ employeeService;}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00031}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_aacebc20ca0fdbbf6f56bf265e52bd583}{00031}}\ \ \ \ \ \textcolor{keyword}{public}\ ResponseEntity<TokenInfo>\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_aacebc20ca0fdbbf6f56bf265e52bd583}{checkToken}}(String\ token)\ \textcolor{keywordflow}{throws}\ IOException\ \{}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00032}00032\ \ \ \ \ \ \ \ \ client.getHttpConnectionManager().getParams().setConnectionTimeout(15000);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00033}00033\ \ \ \ \ \ \ \ \ PostMethod\ postMethod\ =\ \textcolor{keyword}{new}\ PostMethod(baseUrl\ +\ \textcolor{stringliteral}{"{}api/login/oauth/introspect"{}});}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00035}00035\ \ \ \ \ \ \ \ \ postMethod.addRequestHeader(\textcolor{stringliteral}{"{}Content-\/type"{}},}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}application/x-\/www-\/form-\/urlencoded"{}});}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00037}00037\ \ \ \ \ \ \ \ \ postMethod.addRequestHeader(\textcolor{stringliteral}{"{}accept"{}},}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}application/json"{}});}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00039}00039\ \ \ \ \ \ \ \ \ postMethod.addRequestHeader(\textcolor{stringliteral}{"{}Authorization"{}},}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ authorization);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00042}00042\ \ \ \ \ \ \ \ \ postMethod.addParameter(\textcolor{stringliteral}{"{}token"{}},\ token);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00043}00043\ \ \ \ \ \ \ \ \ postMethod.addParameter(\textcolor{stringliteral}{"{}token\_type\_hint"{}},\ \textcolor{stringliteral}{"{}access\_token"{}});}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00046}00046\ \ \ \ \ \ \ \ \ client.executeMethod(postMethod);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{byte}[]\ responseBody\ =\ postMethod.getResponseBody();}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00048}00048\ \ \ \ \ \ \ \ \ String\ s\ =\ \textcolor{keyword}{new}\ String(responseBody);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00050}00050\ \ \ \ \ \ \ \ \ JSONObject\ response\ =\ JSONObject.parseObject(s);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00052}00052\ \ \ \ \ \ \ \ \ ModelMapper\ modelMapper\ =\ \textcolor{keyword}{new}\ ModelMapper();}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00053}00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_my_token}{MyToken}}\ myToken\ =\ modelMapper.map(response,\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_my_token}{MyToken}}.class);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00055}00055\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_token_info}{TokenInfo}}\ info\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_token_info}{TokenInfo}}();}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00056}00056\ \ \ \ \ \ \ \ \ info.setActive(myToken.isActive());}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00057}00057\ \ \ \ \ \ \ \ \ info.setUsername(myToken.getUsername());}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity<>(info,\ HttpStatus.OK);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00059}00059\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00061}00061\ \ \ \ \ \textcolor{comment}{//\ Get\ all\ employee\ info}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00062}00062\ \ \ \ \ @RequestMapping(value\ =\ \textcolor{stringliteral}{"{}employees"{}},\ method\ =\ RequestMethod.GET)}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00063}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a1c304b2e0770a03aa93ec72ab5419a97}{00063}}\ \ \ \ \ public\ ResponseEntity<List<\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_all_employee_info_out_dto}{AllEmployeeInfoOutDto}}>>\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a1c304b2e0770a03aa93ec72ab5419a97}{getAllEmployees}}(}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ @RequestParam(value\ =\ "{}token"{},\ required\ =\ false)\ String\ token}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00065}00065\ \ \ \ \ )\ throws\ IOException\ \{}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ token}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (token\ ==\ \textcolor{keyword}{null})\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity<>(HttpStatus.UNAUTHORIZED);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00068}00068\ \ \ \ \ \ \ \ \ ResponseEntity<TokenInfo>\ check\ =\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_aacebc20ca0fdbbf6f56bf265e52bd583}{checkToken}}(token);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (check.getBody()\ ==\ \textcolor{keyword}{null}\ ||\ !check.getBody().getActive())}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity<>(HttpStatus.UNAUTHORIZED);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00072}00072\ \ \ \ \ \ \ \ \ List<AllEmployeeInfoOutDto>\ result\ =\ employeeService.\mbox{\hyperlink{interfacecom_1_1example_1_1backend_1_1service_1_1_employee_service_ab012ae9ae045838734c618b2fe616659}{getAllEmployeeInfo}}();}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result.size()\ ==\ 0)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity(HttpStatus.NO\_CONTENT);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity<List<AllEmployeeInfoOutDto>>(result,\ HttpStatus.OK);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00075}00075\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00077}00077\ \ \ \ \ \textcolor{comment}{//\ Get\ one\ employee\ info}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00078}00078\ \ \ \ \ @RequestMapping(value\ =\ \textcolor{stringliteral}{"{}employee"{}},\ method\ =\ RequestMethod.GET)}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00079}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ab165189ef0fa90f70a32d07f3ed5df0e}{00079}}\ \ \ \ \ public\ ResponseEntity<\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_one_employee_out_dto}{OneEmployeeOutDto}}>\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a1c304b2e0770a03aa93ec72ab5419a97}{getAllEmployees}}(}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ @RequestParam(value\ =\ "{}\textcolor{keywordtype}{id}"{},\ required\ =\ false)\ String\ \textcolor{keywordtype}{id},}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ @RequestParam(value\ =\ "{}token"{},\ required\ =\ false)\ String\ token}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00082}00082\ \ \ \ \ )\ throws\ IOException\ \{}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ token}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (token\ ==\ \textcolor{keyword}{null})\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity<>(HttpStatus.UNAUTHORIZED);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00085}00085\ \ \ \ \ \ \ \ \ ResponseEntity<TokenInfo>\ check\ =\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_aacebc20ca0fdbbf6f56bf265e52bd583}{checkToken}}(token);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (check.getBody()\ ==\ \textcolor{keyword}{null}\ ||\ !check.getBody().getActive())}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity<>(HttpStatus.UNAUTHORIZED);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{id}\ ==\ \textcolor{keyword}{null})\ \textcolor{keywordtype}{id}\ =\ check.getBody().getUsername();}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00090}00090\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_one_employee_out_dto}{OneEmployeeOutDto}}\ result\ =\ employeeService.\mbox{\hyperlink{interfacecom_1_1example_1_1backend_1_1service_1_1_employee_service_a8b22650b49a4a93af1c318e84f79ac89}{getOneEmployeeInfo}}(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ ==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity(HttpStatus.NO\_CONTENT);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00093}00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity<>(result,\ HttpStatus.OK);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00095}00095\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00097}00097\ \ \ \ \ \textcolor{comment}{//\ add\ a\ new\ employee}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00098}00098\ \ \ \ \ @RequestMapping(value\ =\ \textcolor{stringliteral}{"{}employees"{}},\ method\ =\ RequestMethod.POST)}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00099}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a3a81a81d3a331a655b72d22822e11c95}{00099}}\ \ \ \ \ public\ ResponseEntity\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a3a81a81d3a331a655b72d22822e11c95}{addEmployee}}(@RequestBody\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_one_employee_in_dto}{OneEmployeeInDto}}\ employeeDto)}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00100}00100\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (employeeService.\mbox{\hyperlink{interfacecom_1_1example_1_1backend_1_1service_1_1_employee_service_a4ed3f088e0cbab7eb26a1480488fcda1}{addEmployee}}(employeeDto))\ \{}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity(HttpStatus.CREATED);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00103}00103\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity(HttpStatus.BAD\_REQUEST);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00105}00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00106}00106\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00108}00108\ \ \ \ \ \textcolor{comment}{//\ update\ a\ new\ employee}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00109}00109\ \ \ \ \ @RequestMapping(value\ =\ \textcolor{stringliteral}{"{}employees"{}},\ method\ =\ RequestMethod.PUT)}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00110}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ab912953af3e96a294ce6dea3755885cf}{00110}}\ \ \ \ \ public\ ResponseEntity\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ab912953af3e96a294ce6dea3755885cf}{updateEmployee}}(@RequestBody\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_one_employee_in_dto}{OneEmployeeInDto}}\ employeeDto)}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00111}00111\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (employeeService.\mbox{\hyperlink{interfacecom_1_1example_1_1backend_1_1service_1_1_employee_service_af455287992dd8e768b70d38787ed93b8}{updateEmployee}}(employeeDto))\ \{}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity(HttpStatus.OK);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00114}00114\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity(HttpStatus.BAD\_REQUEST);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00116}00116\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00117}00117\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00119}00119\ \ \ \ \ \textcolor{comment}{//\ delete\ a\ new\ employee}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00120}00120\ \ \ \ \ @RequestMapping(value\ =\ \textcolor{stringliteral}{"{}employees"{}},\ method\ =\ RequestMethod.DELETE)}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00121}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a165e2938de257a7b98070fc584ef37c2}{00121}}\ \ \ \ \ public\ ResponseEntity\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a165e2938de257a7b98070fc584ef37c2}{deleteEmployee}}(}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ @RequestParam(required\ =\ true)\ String\ \textcolor{keywordtype}{id},}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ @RequestParam(required\ =\ false)\ String\ token}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00124}00124\ \ \ \ \ )\ throws\ IOException\ \{}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ token}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (token\ ==\ \textcolor{keyword}{null})\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity<>(HttpStatus.UNAUTHORIZED);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00127}00127\ \ \ \ \ \ \ \ \ ResponseEntity<TokenInfo>\ check\ =\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_aacebc20ca0fdbbf6f56bf265e52bd583}{checkToken}}(token);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (check.getBody()\ ==\ \textcolor{keyword}{null}\ ||\ !check.getBody().getActive())}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity<>(HttpStatus.UNAUTHORIZED);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (employeeService.\mbox{\hyperlink{interfacecom_1_1example_1_1backend_1_1service_1_1_employee_service_aff1111f29316b503959e9dae25299e64}{deleteEmployee}}(\textcolor{keywordtype}{id}))\ \{}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity(HttpStatus.OK);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00133}00133\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ResponseEntity(HttpStatus.BAD\_REQUEST);}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00135}00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00136}00136\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_employee_controller_8java_source_l00137}00137\ \}}
+
+\end{DoxyCode}

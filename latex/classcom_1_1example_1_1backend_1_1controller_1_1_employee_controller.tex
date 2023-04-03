@@ -1,0 +1,155 @@
+\hypertarget{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller}{}\doxysection{com.\+example.\+backend.\+controller.\+Employee\+Controller Class Reference}
+\label{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller}\index{com.example.backend.controller.EmployeeController@{com.example.backend.controller.EmployeeController}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ad041eb34f36596943ea71cbffed77474}{Employee\+Controller}} (\mbox{\hyperlink{interfacecom_1_1example_1_1backend_1_1service_1_1_employee_service}{Employee\+Service}} employee\+Service)
+\item 
+Response\+Entity$<$ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_token_info}{Token\+Info}} $>$ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_aacebc20ca0fdbbf6f56bf265e52bd583}{check\+Token}} (String token)  throws IOException 
+\item 
+Response\+Entity$<$ List$<$ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_all_employee_info_out_dto}{All\+Employee\+Info\+Out\+Dto}} $>$ $>$ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a1c304b2e0770a03aa93ec72ab5419a97}{get\+All\+Employees}} ( @Request\+Param(value=\char`\"{}token\char`\"{}, required=false) String token)  throws IOException 
+\item 
+Response\+Entity$<$ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_one_employee_out_dto}{One\+Employee\+Out\+Dto}} $>$ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ab165189ef0fa90f70a32d07f3ed5df0e}{get\+All\+Employees}} ( @Request\+Param(value=\char`\"{}id\char`\"{}, required=false) String id, @Request\+Param(value=\char`\"{}token\char`\"{}, required=false) String token)  throws IOException 
+\item 
+Response\+Entity \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a3a81a81d3a331a655b72d22822e11c95}{add\+Employee}} (@Request\+Body \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_one_employee_in_dto}{One\+Employee\+In\+Dto}} employee\+Dto)
+\item 
+Response\+Entity \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ab912953af3e96a294ce6dea3755885cf}{update\+Employee}} (@Request\+Body \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_one_employee_in_dto}{One\+Employee\+In\+Dto}} employee\+Dto)
+\item 
+Response\+Entity \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a165e2938de257a7b98070fc584ef37c2}{delete\+Employee}} ( @Request\+Param(required=true) String id, @Request\+Param(required=false) String token)  throws IOException 
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_employee_controller_8java_source_l00020}{20}} of file \mbox{\hyperlink{_employee_controller_8java_source}{Employee\+Controller.\+java}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ad041eb34f36596943ea71cbffed77474}\label{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ad041eb34f36596943ea71cbffed77474}} 
+\index{com.example.backend.controller.EmployeeController@{com.example.backend.controller.EmployeeController}!EmployeeController@{EmployeeController}}
+\index{EmployeeController@{EmployeeController}!com.example.backend.controller.EmployeeController@{com.example.backend.controller.EmployeeController}}
+\doxysubsubsection{\texorpdfstring{EmployeeController()}{EmployeeController()}}
+{\footnotesize\ttfamily com.\+example.\+backend.\+controller.\+Employee\+Controller.\+Employee\+Controller (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interfacecom_1_1example_1_1backend_1_1service_1_1_employee_service}{Employee\+Service}}}]{employee\+Service }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_employee_controller_8java_source_l00027}{27}} of file \mbox{\hyperlink{_employee_controller_8java_source}{Employee\+Controller.\+java}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a3a81a81d3a331a655b72d22822e11c95}\label{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a3a81a81d3a331a655b72d22822e11c95}} 
+\index{com.example.backend.controller.EmployeeController@{com.example.backend.controller.EmployeeController}!addEmployee@{addEmployee}}
+\index{addEmployee@{addEmployee}!com.example.backend.controller.EmployeeController@{com.example.backend.controller.EmployeeController}}
+\doxysubsubsection{\texorpdfstring{addEmployee()}{addEmployee()}}
+{\footnotesize\ttfamily Response\+Entity com.\+example.\+backend.\+controller.\+Employee\+Controller.\+add\+Employee (\begin{DoxyParamCaption}\item[{@Request\+Body \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_one_employee_in_dto}{One\+Employee\+In\+Dto}}}]{employee\+Dto }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_employee_controller_8java_source_l00099}{99}} of file \mbox{\hyperlink{_employee_controller_8java_source}{Employee\+Controller.\+java}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a3a81a81d3a331a655b72d22822e11c95_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_aacebc20ca0fdbbf6f56bf265e52bd583}\label{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_aacebc20ca0fdbbf6f56bf265e52bd583}} 
+\index{com.example.backend.controller.EmployeeController@{com.example.backend.controller.EmployeeController}!checkToken@{checkToken}}
+\index{checkToken@{checkToken}!com.example.backend.controller.EmployeeController@{com.example.backend.controller.EmployeeController}}
+\doxysubsubsection{\texorpdfstring{checkToken()}{checkToken()}}
+{\footnotesize\ttfamily Response\+Entity$<$ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_token_info}{Token\+Info}} $>$ com.\+example.\+backend.\+controller.\+Employee\+Controller.\+check\+Token (\begin{DoxyParamCaption}\item[{String}]{token }\end{DoxyParamCaption}) throws IOException}
+
+
+
+Definition at line \mbox{\hyperlink{_employee_controller_8java_source_l00031}{31}} of file \mbox{\hyperlink{_employee_controller_8java_source}{Employee\+Controller.\+java}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_aacebc20ca0fdbbf6f56bf265e52bd583_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a165e2938de257a7b98070fc584ef37c2}\label{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a165e2938de257a7b98070fc584ef37c2}} 
+\index{com.example.backend.controller.EmployeeController@{com.example.backend.controller.EmployeeController}!deleteEmployee@{deleteEmployee}}
+\index{deleteEmployee@{deleteEmployee}!com.example.backend.controller.EmployeeController@{com.example.backend.controller.EmployeeController}}
+\doxysubsubsection{\texorpdfstring{deleteEmployee()}{deleteEmployee()}}
+{\footnotesize\ttfamily Response\+Entity com.\+example.\+backend.\+controller.\+Employee\+Controller.\+delete\+Employee (\begin{DoxyParamCaption}\item[{@Request\+Param(required=true) String}]{id,  }\item[{@Request\+Param(required=false) String}]{token }\end{DoxyParamCaption}) throws IOException}
+
+
+
+Definition at line \mbox{\hyperlink{_employee_controller_8java_source_l00121}{121}} of file \mbox{\hyperlink{_employee_controller_8java_source}{Employee\+Controller.\+java}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a165e2938de257a7b98070fc584ef37c2_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ab165189ef0fa90f70a32d07f3ed5df0e}\label{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ab165189ef0fa90f70a32d07f3ed5df0e}} 
+\index{com.example.backend.controller.EmployeeController@{com.example.backend.controller.EmployeeController}!getAllEmployees@{getAllEmployees}}
+\index{getAllEmployees@{getAllEmployees}!com.example.backend.controller.EmployeeController@{com.example.backend.controller.EmployeeController}}
+\doxysubsubsection{\texorpdfstring{getAllEmployees()}{getAllEmployees()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Response\+Entity$<$ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_one_employee_out_dto}{One\+Employee\+Out\+Dto}} $>$ com.\+example.\+backend.\+controller.\+Employee\+Controller.\+get\+All\+Employees (\begin{DoxyParamCaption}\item[{@Request\+Param(value=\char`\"{}id\char`\"{}, required=false) String}]{id,  }\item[{@Request\+Param(value=\char`\"{}token\char`\"{}, required=false) String}]{token }\end{DoxyParamCaption}) throws IOException}
+
+
+
+Definition at line \mbox{\hyperlink{_employee_controller_8java_source_l00079}{79}} of file \mbox{\hyperlink{_employee_controller_8java_source}{Employee\+Controller.\+java}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ab165189ef0fa90f70a32d07f3ed5df0e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a1c304b2e0770a03aa93ec72ab5419a97}\label{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a1c304b2e0770a03aa93ec72ab5419a97}} 
+\index{com.example.backend.controller.EmployeeController@{com.example.backend.controller.EmployeeController}!getAllEmployees@{getAllEmployees}}
+\index{getAllEmployees@{getAllEmployees}!com.example.backend.controller.EmployeeController@{com.example.backend.controller.EmployeeController}}
+\doxysubsubsection{\texorpdfstring{getAllEmployees()}{getAllEmployees()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Response\+Entity$<$ List$<$ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_all_employee_info_out_dto}{All\+Employee\+Info\+Out\+Dto}} $>$ $>$ com.\+example.\+backend.\+controller.\+Employee\+Controller.\+get\+All\+Employees (\begin{DoxyParamCaption}\item[{@Request\+Param(value=\char`\"{}token\char`\"{}, required=false) String}]{token }\end{DoxyParamCaption}) throws IOException}
+
+
+
+Definition at line \mbox{\hyperlink{_employee_controller_8java_source_l00063}{63}} of file \mbox{\hyperlink{_employee_controller_8java_source}{Employee\+Controller.\+java}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_a1c304b2e0770a03aa93ec72ab5419a97_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ab912953af3e96a294ce6dea3755885cf}\label{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ab912953af3e96a294ce6dea3755885cf}} 
+\index{com.example.backend.controller.EmployeeController@{com.example.backend.controller.EmployeeController}!updateEmployee@{updateEmployee}}
+\index{updateEmployee@{updateEmployee}!com.example.backend.controller.EmployeeController@{com.example.backend.controller.EmployeeController}}
+\doxysubsubsection{\texorpdfstring{updateEmployee()}{updateEmployee()}}
+{\footnotesize\ttfamily Response\+Entity com.\+example.\+backend.\+controller.\+Employee\+Controller.\+update\+Employee (\begin{DoxyParamCaption}\item[{@Request\+Body \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1dto_1_1_one_employee_in_dto}{One\+Employee\+In\+Dto}}}]{employee\+Dto }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_employee_controller_8java_source_l00110}{110}} of file \mbox{\hyperlink{_employee_controller_8java_source}{Employee\+Controller.\+java}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcom_1_1example_1_1backend_1_1controller_1_1_employee_controller_ab912953af3e96a294ce6dea3755885cf_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/com/example/backend/controller/\mbox{\hyperlink{_employee_controller_8java}{Employee\+Controller.\+java}}\end{DoxyCompactItemize}

@@ -1,0 +1,65 @@
+\hypertarget{_alert_entity_8java_source}{}\doxysection{Alert\+Entity.\+java}
+\label{_alert_entity_8java_source}\index{src/main/java/com/example/backend/entity/AlertEntity.java@{src/main/java/com/example/backend/entity/AlertEntity.java}}
+\mbox{\hyperlink{_alert_entity_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00001}\mbox{\hyperlink{namespacecom_1_1example_1_1backend_1_1entity}{00001}}\ \textcolor{keyword}{package\ }com.example.backend.entity;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00003}00003\ \textcolor{keyword}{import}\ com.alibaba.fastjson.annotation.JSONField;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00004}00004\ \textcolor{keyword}{import}\ org.springframework.data.mongodb.core.mapping.Document;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00006}00006\ @Document(collection\ =\ \textcolor{stringliteral}{"{}Test"{}})}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00007}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity}{00007}}\ public\ class\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity}{AlertEntity}}\ \{}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00008}00008\ \ \ \ \ \textcolor{keyword}{private}\ String\ id;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00009}00009\ \ \ \ \ @JSONField(serialize=\textcolor{keyword}{false})}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00010}00010\ \ \ \ \ \textcolor{keyword}{private}\ String\ pod;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00011}00011\ \ \ \ \ \textcolor{keyword}{private}\ Long\ time;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00012}00012\ \ \ \ \ \textcolor{keyword}{private}\ \ String\ entity\_id;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00013}00013\ \ \ \ \ \textcolor{keyword}{private}\ \ String\ category;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00014}00014\ \ \ \ \ \textcolor{keyword}{private}\ \ String\ description;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00015}00015\ \ \ \ \ \textcolor{keyword}{private}\ \ String\ status;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00016}00016\ \ \ \ \ \textcolor{keyword}{private}\ \ String\ entity\_name;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00018}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_af1ba00d76218fdb788319ac2626d02fe}{00018}}\ \ \ \ \ \textcolor{keyword}{public}\ Long\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_af1ba00d76218fdb788319ac2626d02fe}{get\_time}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ time;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00020}00020\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00022}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a58680b2547612426f06712f6ff1e735b}{00022}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a58680b2547612426f06712f6ff1e735b}{set\_time}}(Long\ time)\ \{}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00023}00023\ \ \ \ \ \ \ \ \ this.time\ =\ time;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00024}00024\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00026}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a509dd6d4eced15e849cdf10ca159cecf}{00026}}\ \ \ \ \ \textcolor{keyword}{public}\ String\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a509dd6d4eced15e849cdf10ca159cecf}{get\_entity\_id}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ entity\_id;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00028}00028\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00030}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_af9df03729db7a1ddfc99c3e5eb1749b5}{00030}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_af9df03729db7a1ddfc99c3e5eb1749b5}{set\_entity\_id}}(String\ entity\_id)\ \{this.entity\_id\ =\ entity\_id;\}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00032}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a82edf2587b7ab7259b1a48d5c31e96d4}{00032}}\ \ \ \ \ \textcolor{keyword}{public}\ String\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a82edf2587b7ab7259b1a48d5c31e96d4}{get\_pod}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pod;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00034}00034\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00036}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_aaeb50a27c8a0ba2cb0f5689bab42b068}{00036}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_aaeb50a27c8a0ba2cb0f5689bab42b068}{set\_pod}}(String\ pod)\ \{}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00037}00037\ \ \ \ \ \ \ \ \ this.pod\ =\ pod;}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00038}00038\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00040}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_ad3770a86be5c428d66f999b2f2039f6a}{00040}}\ \ \ \ \ \textcolor{keyword}{public}\ String\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_ad3770a86be5c428d66f999b2f2039f6a}{get\_category}}()\ \{\textcolor{keywordflow}{return}\ category;\}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00042}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a8b05e6d79ef0b504d672c92888488737}{00042}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a8b05e6d79ef0b504d672c92888488737}{set\_category}}(String\ category)\ \{this.category\ =\ category;\}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00044}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a135282b4888906fb8a2ddd66168284cd}{00044}}\ \ \ \ \ \textcolor{keyword}{public}\ String\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a135282b4888906fb8a2ddd66168284cd}{get\_description}}()\ \{\textcolor{keywordflow}{return}\ description;\}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00046}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a372b123f274e7119d16395d0c54d5d98}{00046}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a372b123f274e7119d16395d0c54d5d98}{set\_description}}(String\ description)\ \{this.description\ =\ description;\}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00048}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a30d97413fcaa3bbcd9bd89b555cb172c}{00048}}\ \ \ \ \ \textcolor{keyword}{public}\ String\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a30d97413fcaa3bbcd9bd89b555cb172c}{get\_status}}()\ \{\textcolor{keywordflow}{return}\ status;\}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00050}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a1e5e8583e3c76919810698fcb20a2ac3}{00050}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a1e5e8583e3c76919810698fcb20a2ac3}{set\_status}}(String\ status)\ \{this.status\ =\ status;\}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00052}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a846f9ca386113181fdb9df516c3a7b60}{00052}}\ \ \ \ \ \textcolor{keyword}{public}\ String\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a846f9ca386113181fdb9df516c3a7b60}{get\_entity\_name}}()\ \{\textcolor{keywordflow}{return}\ entity\_name;\}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00054}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_ad86efdb54531b18a2bcc37603d0fbeb0}{00054}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_ad86efdb54531b18a2bcc37603d0fbeb0}{set\_entity\_name}}(String\ entity\_name)\ \{this.entity\_name\ =\ entity\_name;\}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00056}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_ae5f5cf99547919dee9bb7b0ca6041366}{00056}}\ \ \ \ \ \textcolor{keyword}{public}\ String\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_ae5f5cf99547919dee9bb7b0ca6041366}{get\_id}}()\ \{\textcolor{keywordflow}{return}\ id;\}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00058}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a5f9b9f185bced56b3efd327c3fa15ab5}{00058}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a5f9b9f185bced56b3efd327c3fa15ab5}{set\_id}}(String\ \textcolor{keywordtype}{id})\ \{this.id\ =\ id;\}}
+\DoxyCodeLine{\Hypertarget{_alert_entity_8java_source_l00059}00059\ \}}
+
+\end{DoxyCode}

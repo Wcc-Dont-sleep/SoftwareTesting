@@ -1,0 +1,91 @@
+\hypertarget{_alert_scheduler_8java_source}{}\doxysection{Alert\+Scheduler.\+java}
+\label{_alert_scheduler_8java_source}\index{src/main/java/com/example/backend/scheduler/AlertScheduler.java@{src/main/java/com/example/backend/scheduler/AlertScheduler.java}}
+\mbox{\hyperlink{_alert_scheduler_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00001}\mbox{\hyperlink{namespacecom_1_1example_1_1backend_1_1scheduler}{00001}}\ \textcolor{keyword}{package\ }com.example.backend.scheduler;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00003}00003\ \textcolor{keyword}{import}\ com.alibaba.fastjson.JSON;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00004}00004\ \textcolor{keyword}{import}\ com.alibaba.fastjson.JSONArray;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00005}00005\ \textcolor{keyword}{import}\ com.alibaba.fastjson.JSONObject;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00006}00006\ \textcolor{keyword}{import}\ com.example.backend.entity.AlertEntity;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00007}00007\ \textcolor{keyword}{import}\ org.apache.commons.httpclient.HttpClient;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00008}00008\ \textcolor{keyword}{import}\ org.apache.commons.httpclient.methods.GetMethod;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00009}00009\ \textcolor{keyword}{import}\ org.slf4j.Logger;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00010}00010\ \textcolor{keyword}{import}\ org.slf4j.LoggerFactory;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00011}00011\ \textcolor{keyword}{import}\ org.springframework.beans.factory.annotation.Autowired;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00012}00012\ \textcolor{keyword}{import}\ org.springframework.data.mongodb.core.MongoTemplate;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00013}00013\ \textcolor{keyword}{import}\ org.springframework.data.mongodb.core.query.Criteria;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00014}00014\ \textcolor{keyword}{import}\ org.springframework.data.mongodb.core.query.Query;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00015}00015\ \textcolor{keyword}{import}\ org.springframework.scheduling.annotation.Scheduled;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00016}00016\ \textcolor{keyword}{import}\ org.springframework.stereotype.Component;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00018}00018\ \textcolor{keyword}{import}\ java.io.IOException;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00020}00020\ @Component}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00021}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1scheduler_1_1_alert_scheduler}{00021}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1scheduler_1_1_alert_scheduler}{AlertScheduler}}\ \{}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00022}00022\ \ \ \ \ @Autowired}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00023}00023\ \ \ \ \ MongoTemplate\ mongoTemplate;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00025}00025\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keyword}{final}\ Logger\ logger\ =\ LoggerFactory.getLogger(this.getClass());}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00026}00026\ \ \ \ \ \textcolor{keyword}{private}\ String\ baseUrl\ =\ \textcolor{stringliteral}{"{}http://10.60.38.174:31013/api/v1/query\_range?query=ALERTS"{}};}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00028}00028\ \ \ \ \ @Scheduled(initialDelay=1000,\ fixedRate=1000\ *\ 60\ *\ 30)}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00029}\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1scheduler_1_1_alert_scheduler_aadc99f865723cd564e59128251c35ce8}{00029}}\ \ \ \ \ public\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1scheduler_1_1_alert_scheduler_aadc99f865723cd564e59128251c35ce8}{pollingAlert}}()\ throws\ IOException\ \{}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ cur\ =\ System.currentTimeMillis()\ /\ 1000;}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00032}00032\ \ \ \ \ \ \ \ \ String\ url\ =\ baseUrl\ +\ \textcolor{stringliteral}{"{}\&start="{}}\ +\ String.valueOf(cur\ -\/\ 60\ *\ 30);}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00033}00033\ \ \ \ \ \ \ \ \ url\ +=\ \textcolor{stringliteral}{"{}\&end="{}}\ +\ String.valueOf(cur)\ +\ \textcolor{stringliteral}{"{}\&step=180s"{}};}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00035}00035\ \ \ \ \ \ \ \ \ logger.info(url);}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00037}00037\ \ \ \ \ \ \ \ \ HttpClient\ httpClient\ =\ \textcolor{keyword}{new}\ HttpClient();}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00038}00038\ \ \ \ \ \ \ \ \ httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(15000);}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00039}00039\ \ \ \ \ \ \ \ \ GetMethod\ getMethod\ =\ \textcolor{keyword}{new}\ GetMethod(url);}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00040}00040\ \ \ \ \ \ \ \ \ getMethod.addRequestHeader(\textcolor{stringliteral}{"{}Content-\/Type"{}},\ \textcolor{stringliteral}{"{}application/json"{}});}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00042}00042\ \ \ \ \ \ \ \ \ httpClient.executeMethod(getMethod);}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00044}00044\ \ \ \ \ \ \ \ \ String\ result\ =\ getMethod.getResponseBodyAsString();}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00045}00045\ \ \ \ \ \ \ \ \ getMethod.releaseConnection();}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00047}00047\ \ \ \ \ \ \ \ \ JSONObject\ \textcolor{keywordtype}{object}\ =\ JSON.parseObject(result);}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00048}00048\ \ \ \ \ \ \ \ \ JSONObject\ data\ =\ JSON.parseObject(\textcolor{keywordtype}{object}.getString(\textcolor{stringliteral}{"{}data"{}}));}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00049}00049\ \ \ \ \ \ \ \ \ JSONArray\ data\_result\ =\ JSON.parseArray(data.getString(\textcolor{stringliteral}{"{}result"{}}));}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00051}00051\ \ \ \ \ \ \ \ \ logger.info(data\_result.toString());}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ data\_result.size();\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ JSONObject\ obj\ =\ data\_result.getJSONObject(i);}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ JSONObject\ metric\ =\ JSON.parseObject(obj.getString(\textcolor{stringliteral}{"{}metric"{}}));}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ JSONArray\ values\ =\ JSON.parseArray(obj.getString(\textcolor{stringliteral}{"{}values"{}}));}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ String\ pod\ =\ metric.getString(\textcolor{stringliteral}{"{}pod"{}});}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ String\ entity\_id\ =\ metric.getString(\textcolor{stringliteral}{"{}namespace"{}});}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ String\ category\ =\ metric.getString(\textcolor{stringliteral}{"{}alertstate"{}});}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ String\ description\ =\ metric.getString(\textcolor{stringliteral}{"{}alertname"{}});}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ String\ status\ =\ \textcolor{stringliteral}{"{}unread"{}};}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ String\ entity\_name\ =\ metric.getString(\textcolor{stringliteral}{"{}container"{}});}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ values.size();\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JSONArray\ array\ =\ values.getJSONArray(j);}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity}{AlertEntity}}\ alertEntity\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity}{AlertEntity}}();}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alertEntity.\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_aaeb50a27c8a0ba2cb0f5689bab42b068}{set\_pod}}(pod);}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alertEntity.\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a58680b2547612426f06712f6ff1e735b}{set\_time}}(Long.valueOf(array.getString(0)));}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alertEntity.\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_af9df03729db7a1ddfc99c3e5eb1749b5}{set\_entity\_id}}(entity\_id);}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alertEntity.\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a8b05e6d79ef0b504d672c92888488737}{set\_category}}(category);}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alertEntity.\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a372b123f274e7119d16395d0c54d5d98}{set\_description}}(description);}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alertEntity.\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_a1e5e8583e3c76919810698fcb20a2ac3}{set\_status}}(status);}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alertEntity.\mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity_ad86efdb54531b18a2bcc37603d0fbeb0}{set\_entity\_name}}(entity\_name);}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mongoTemplate.insert(alertEntity,\ \textcolor{stringliteral}{"{}Test"{}});}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00079}00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00081}00081\ \ \ \ \ \ \ \ \ Query\ query\ =\ \textcolor{keyword}{new}\ Query(Criteria.where(\textcolor{stringliteral}{"{}time"{}}).lt(String.valueOf(cur\ -\/\ 60\ *\ 30)));}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00082}00082\ \ \ \ \ \ \ \ \ mongoTemplate.remove(query,\ \mbox{\hyperlink{classcom_1_1example_1_1backend_1_1entity_1_1_alert_entity}{AlertEntity}}.class,\ \textcolor{stringliteral}{"{}Test"{}});}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00083}00083\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{_alert_scheduler_8java_source_l00085}00085\ \}}
+
+\end{DoxyCode}
