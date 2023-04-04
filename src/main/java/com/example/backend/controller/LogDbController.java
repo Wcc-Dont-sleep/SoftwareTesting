@@ -32,7 +32,7 @@ public class LogDbController {
             @RequestParam(required = false, defaultValue = "2147483647000") Long time_end)
             throws IOException
     {
-        Query query = Query.query(Criteria.where("time")
+        Query query = Query.query(Criteria.where("Time")
                 .lte(time_end)
                 .gte(time_start)
         );
