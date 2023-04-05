@@ -16,3 +16,4 @@ public class HDFSEntity {
     private String EventTemplate;
 
 }
+
