@@ -57,7 +57,6 @@ public class LogDbController {
             res.put("probability",0.9);
             res.put("threshold",null);
         }
-        List<HDFSEntity> resultList = mongoTemplate.find(query, HDFSEntity.class, "HDFS");
 //        System.out.println(resultList);
 
         return new ResponseEntity<String>(JSON.toJSONString(res), HttpStatus.OK);
