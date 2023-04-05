@@ -33,13 +33,8 @@ public class LogDbController {
             @RequestParam(required = false, defaultValue = "2147483647000") Long time_end)
             throws IOException
     {
-        
-        Query query = Query.query(Criteria.where("Time")
-                .lte(time_end)
-                .gte(time_start)
-        );
-        List<HDFSEntity> resultList = mongoTemplate.findAll(HDFSEntity.class);
-//        System.out.println(resultList);
+        Query q = new Query();
+        List<HDFSEntity> resultList = mongoTemplate.find(q,HDFSEntity.class,"HDFS");
         return new ResponseEntity<String>(JSON.toJSONString(resultList), HttpStatus.OK);
     }
 
