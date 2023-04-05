@@ -4,9 +4,13 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.backend.dto.AlertStatusDto;
 import com.example.backend.entity.AlertEntity;
+<<<<<<< HEAD
 import com.example.backend.entity.BGLEntity;
 import com.example.backend.entity.HDFSEntity;
 import com.example.backend.entity.MyLog;
+=======
+import com.example.backend.entity.HDFSEntity;
+>>>>>>> bb0ceeb7c622f1ee51d10f7628080ecd2361095f
 import org.apache.catalina.connector.Response;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
