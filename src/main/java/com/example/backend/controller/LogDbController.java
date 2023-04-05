@@ -39,6 +39,7 @@ public class LogDbController {
             @RequestParam(required = false, defaultValue = "2147483647000") Long time_end)
             throws IOException
     {
+<<<<<<< HEAD
         Query query = new Query();
         MyLog log = new MyLog();
         System.out.println(model);
@@ -63,6 +64,11 @@ public class LogDbController {
 //        System.out.println(resultList);
 
         return new ResponseEntity<String>(JSON.toJSONString(res), HttpStatus.OK);
+=======
+        Query q = new Query();
+        List<HDFSEntity> resultList = mongoTemplate.find(q,HDFSEntity.class,"HDFS");
+        return new ResponseEntity<String>(JSON.toJSONString(resultList), HttpStatus.OK);
+>>>>>>> bb0ceeb7c622f1ee51d10f7628080ecd2361095f
     }
 
 }
