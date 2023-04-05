@@ -4,6 +4,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.backend.dto.AlertStatusDto;
 import com.example.backend.entity.AlertEntity;
+import com.example.backend.entity.BGLEntity;
+import com.example.backend.entity.HDFSEntity;
+import com.example.backend.entity.MyLog;
 import org.apache.catalina.connector.Response;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -17,8 +20,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 @RestController
 public class LogDbController {
     @Autowired
@@ -32,13 +35,30 @@ public class LogDbController {
             @RequestParam(required = false, defaultValue = "2147483647000") Long time_end)
             throws IOException
     {
-        Query query = Query.query(Criteria.where("Time")
-                .lte(time_end)
-                .gte(time_start)
-        );
-        List<AlertEntity> resultList = mongoTemplate.find(query, AlertEntity.class, dataset);
+        Query query = new Query();
+        MyLog log = new MyLog();
+        System.out.println(model);
+        Map res = new HashMap<>();
+
+        if(Objects.equals(dataset, "HDFS"))
+
+        {
+            List<HDFSEntity> resultList = mongoTemplate.find(query, HDFSEntity.class, dataset);
+            res.put("logging",resultList);
+            res.put("probability",0.9);
+            res.put("threshold",null);
+        }
+        else
+        {
+            List<BGLEntity> resultList = mongoTemplate.find(query, BGLEntity.class, dataset);
+            res.put("logging",resultList);
+            res.put("probability",0.9);
+            res.put("threshold",null);
+        }
+        List<HDFSEntity> resultList = mongoTemplate.find(query, HDFSEntity.class, "HDFS");
 //        System.out.println(resultList);
-        return new ResponseEntity<String>(JSON.toJSONString(resultList), HttpStatus.OK);
+
+        return new ResponseEntity<String>(JSON.toJSONString(res), HttpStatus.OK);
     }
 
 }
