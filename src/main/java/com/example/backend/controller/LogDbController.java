@@ -52,7 +52,7 @@ public class LogDbController {
         }
         else
         {
-            List<BGLEntity> resultList = mongoTemplate.find(query, BGLEntity.class, dataset);
+            List<BGLEntity> resultList = mongoTemplate.find(query, BGLEntity.class, "BGLRevised");
             res.put("logging",resultList);
             res.put("probability",0.9);
             res.put("threshold",null);
