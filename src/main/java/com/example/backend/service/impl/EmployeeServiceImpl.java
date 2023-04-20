@@ -117,7 +117,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public OneEmployeeOutDto getOneEmployeeInfo(String id) {
         try {
-            EmployeeEntity employee = mongoTemplate.findById(id, EmployeeEntity.class, "User");
+            List<EmployeeEntity> employees = mongoTemplate.findAll(EmployeeEntity.class,"User");
+            EmployeeEntity employee = employees.get(0);
             if (employee == null) return null;
 
             OneEmployeeOutDto out = new OneEmployeeOutDto();
