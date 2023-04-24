@@ -9,7 +9,7 @@ import java.util.Objects;
 public class NewMetric {
     private String f1;
     public String datetime;
-    public String value;
+    public Double value;
     private String label;
-    public String score;
+    public Double score;
 }
