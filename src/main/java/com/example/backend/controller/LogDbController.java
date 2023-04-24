@@ -3,10 +3,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.backend.dto.AlertStatusDto;
-import com.example.backend.entity.AlertEntity;
-import com.example.backend.entity.BGLEntity;
-import com.example.backend.entity.HDFSEntity;
-import com.example.backend.entity.MyLog;
+import com.example.backend.entity.*;
 import com.example.backend.entity.HDFSEntity;
 import org.apache.catalina.connector.Response;
 import org.apache.commons.httpclient.HttpClient;
@@ -28,8 +25,33 @@ public class LogDbController {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    @RequestMapping(value = "logdb",method  = RequestMethod.GET)
-    public ResponseEntity<String> getLog(
+    @RequestMapping(value = "log/normal",method  = RequestMethod.GET)
+    public ResponseEntity<String> getNormalLog(
+            @RequestParam(required = false) String dataset,
+            @RequestParam(required = false) String model,
+            @RequestParam(required = false, defaultValue = "0") Long time_start,
+            @RequestParam(required = false, defaultValue = "2147483647000") Long time_end)
+            throws IOException
+    {
+
+        Query query = new Query();
+        MyLog log = new MyLog();
+        System.out.println(model);
+        Map res = new HashMap<>();
+        String TableName = "normal_" + dataset;
+
+        List<NewLog> resultList = mongoTemplate.find(query, NewLog.class, TableName);
+        res.put("logging",resultList);
+        res.put("probability",0.9);
+        res.put("threshold",null);
+
+//        System.out.println(resultList);
+
+        return new ResponseEntity<String>(JSON.toJSONString(res), HttpStatus.OK);
+
+    }
+    @RequestMapping(value = "log/abnormal",method  = RequestMethod.GET)
+    public ResponseEntity<String> getAbnormalLog(
             @RequestParam(required = false) String dataset,
             @RequestParam(required = false) String model,
             @RequestParam(required = false, defaultValue = "0") Long time_start,
@@ -42,25 +64,15 @@ public class LogDbController {
         System.out.println(model);
         Map res = new HashMap<>();
 
-        if(Objects.equals(dataset, "HDFS"))
+        String TableName = "abnormal_" + dataset;
 
-        {
-            List<HDFSEntity> resultList = mongoTemplate.find(query, HDFSEntity.class, dataset);
-            res.put("logging",resultList);
-            res.put("probability",0.9);
-            res.put("threshold",null);
-        }
-        else
-        {
-            List<BGLEntity> resultList = mongoTemplate.find(query, BGLEntity.class, "BGLRevised");
-            res.put("logging",resultList);
-            res.put("probability",0.9);
-            res.put("threshold",null);
-        }
-//        System.out.println(resultList);
+        List<NewLog> resultList = mongoTemplate.find(query, NewLog.class, TableName);
+        res.put("logging",resultList);
+        res.put("probability",0.9);
+        res.put("threshold",null);
+
 
         return new ResponseEntity<String>(JSON.toJSONString(res), HttpStatus.OK);
 
     }
-
 }

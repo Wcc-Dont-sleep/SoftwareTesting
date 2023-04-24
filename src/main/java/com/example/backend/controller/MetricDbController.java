@@ -20,8 +20,8 @@ public class MetricDbController {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    @RequestMapping(value = "metricdb",method  = RequestMethod.GET)
-    public ResponseEntity<String> getMetric(
+    @RequestMapping(value = "metric/normal",method  = RequestMethod.GET)
+    public ResponseEntity<String> getNormalMetric(
             @RequestParam(required = false) String dataset,
             @RequestParam(required = false) String model,
             @RequestParam(required = false, defaultValue = "0") Long time_start,
@@ -33,25 +33,59 @@ public class MetricDbController {
         System.out.println(model);
         Map res = new HashMap<>();
 
-        List<DataEntity> datatList = mongoTemplate.find(query, DataEntity.class, dataset);
-        List<ModelEntity> modelList = mongoTemplate.find(query, ModelEntity.class,dataset+model);
+        String TableName = "normal_" + dataset + "_mrt";
+        List<NewMetric> datatList = mongoTemplate.find(query, NewMetric.class, TableName);
         List<Map> resultList = new ArrayList<>();
-        for(int i = 0,j =0;i<datatList.size()&&j<modelList.size();i++,j++)
+        for(int i = 0,j =0;i<datatList.size()&&j<datatList.size();i++,j++)
         {
-            DataEntity data = datatList.get(i);
-            ModelEntity modelEntity = modelList.get(j);
+            NewMetric data = datatList.get(i);
             Map tmp = new HashMap();
-            tmp.put("time",data.getTime());
-            tmp.put("score",modelEntity.getScore());
-            tmp.put("value",data.getData());
+            tmp.put("time",data.datetime);
+            tmp.put("score",data.score);
+            tmp.put("value",data.value);
             resultList.add(tmp);
         }
 
-
+        List<String> proList = mongoTemplate.find(query, String.class, "pro");
         res.put("series",resultList);
-        res.put("probability",0.9);
+        res.put("probability",proList);
 
         return new ResponseEntity<String>(JSON.toJSONString(res), HttpStatus.OK);
 
     }
+    @RequestMapping(value = "metric/abnormal",method  = RequestMethod.GET)
+    public ResponseEntity<String> getAbnormalMetric(
+            @RequestParam(required = false) String dataset,
+            @RequestParam(required = false) String model,
+            @RequestParam(required = false, defaultValue = "0") Long time_start,
+            @RequestParam(required = false, defaultValue = "999999999") Long time_end)
+            throws IOException
+    {
+
+        Query query = new Query();
+        System.out.println(model);
+        Map res = new HashMap<>();
+
+        String TableName = "abnormal_" + dataset + "_mrt";
+        List<NewMetric> datatList = mongoTemplate.find(query, NewMetric.class, TableName);
+        List<Map> resultList = new ArrayList<>();
+        for(int i = 0,j =0;i<datatList.size()&&j<datatList.size();i++,j++)
+        {
+            NewMetric data = datatList.get(i);
+            Map tmp = new HashMap();
+            tmp.put("time",data.datetime);
+            tmp.put("score",data.score);
+            tmp.put("value",data.value);
+            resultList.add(tmp);
+        }
+
+        List<String> proList = mongoTemplate.find(query, String.class, "pro");
+        res.put("series",resultList);
+        res.put("probability",proList);
+
+
+        return new ResponseEntity<String>(JSON.toJSONString(res), HttpStatus.OK);
+
+    }
+
 }
