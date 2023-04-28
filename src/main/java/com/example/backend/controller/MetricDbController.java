@@ -20,10 +20,11 @@ public class MetricDbController {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    @RequestMapping(value = "metric/normal",method  = RequestMethod.GET)
-    public ResponseEntity<String> getNormalMetric(
+    @RequestMapping(value = "metric",method  = RequestMethod.GET)
+    public ResponseEntity<String> getMetric(
             @RequestParam(required = false) String dataset,
             @RequestParam(required = false) String model,
+            @RequestParam(required = false) String status,
             @RequestParam(required = false, defaultValue = "0") Long time_start,
             @RequestParam(required = false, defaultValue = "999999999") Long time_end)
             throws IOException
@@ -33,7 +34,7 @@ public class MetricDbController {
         System.out.println(model);
         Map res = new HashMap<>();
 
-        String TableName = "normal_" + dataset + "_mrt";
+        String TableName = status+"_" + dataset + "_mrt";
         List<NewMetric> datatList = mongoTemplate.find(query, NewMetric.class, TableName);
         List<Map> resultList = new ArrayList<>();
         for(int i = 0,j =0;i<datatList.size()&&j<datatList.size();i++,j++)
@@ -53,6 +54,7 @@ public class MetricDbController {
         return new ResponseEntity<String>(JSON.toJSONString(res), HttpStatus.OK);
 
     }
+    /*
     @RequestMapping(value = "metric/abnormal",method  = RequestMethod.GET)
     public ResponseEntity<String> getAbnormalMetric(
             @RequestParam(required = false) String dataset,
@@ -87,5 +89,5 @@ public class MetricDbController {
         return new ResponseEntity<String>(JSON.toJSONString(res), HttpStatus.OK);
 
     }
-
+    */
 }

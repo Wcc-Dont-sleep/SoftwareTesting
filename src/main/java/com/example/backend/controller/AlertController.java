@@ -62,4 +62,14 @@ public class AlertController {
             return new ResponseEntity(HttpStatus.OK);
         }
     }
+
+    @RequestMapping(value = "alert/entity",method = RequestMethod.GET)
+    public ResponseEntity getAlertByEntity(
+            @RequestParam(required = true)String entityName)
+    {
+        Query query = Query.query(Criteria.where("entity_name")
+                .is(entityName));
+        List<AlertEntity> alertList = mongoTemplate.find(query,AlertEntity.class,"Test");
+        return new ResponseEntity<String>(JSON.toJSONString(alertList), HttpStatus.OK);
+    }
 }

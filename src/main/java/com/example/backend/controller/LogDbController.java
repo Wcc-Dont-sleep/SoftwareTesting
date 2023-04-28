@@ -25,10 +25,11 @@ public class LogDbController {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    @RequestMapping(value = "log/normal",method  = RequestMethod.GET)
-    public ResponseEntity<String> getNormalLog(
+    @RequestMapping(value = "log/mongo",method  = RequestMethod.GET)
+    public ResponseEntity<String> getLog(
             @RequestParam(required = false) String dataset,
             @RequestParam(required = false) String model,
+            @RequestParam(required = false) String status,
             @RequestParam(required = false, defaultValue = "0") Long time_start,
             @RequestParam(required = false, defaultValue = "2147483647000") Long time_end)
             throws IOException
@@ -38,7 +39,7 @@ public class LogDbController {
         MyLog log = new MyLog();
         System.out.println(model);
         Map res = new HashMap<>();
-        String TableName = "normal_" + dataset;
+        String TableName = status+"_" + dataset;
 
         List<NewLog> resultList = mongoTemplate.find(query, NewLog.class, TableName);
         res.put("logging",resultList);
@@ -50,6 +51,7 @@ public class LogDbController {
         return new ResponseEntity<String>(JSON.toJSONString(res), HttpStatus.OK);
 
     }
+    /*
     @RequestMapping(value = "log/abnormal",method  = RequestMethod.GET)
     public ResponseEntity<String> getAbnormalLog(
             @RequestParam(required = false) String dataset,
@@ -75,4 +77,5 @@ public class LogDbController {
         return new ResponseEntity<String>(JSON.toJSONString(res), HttpStatus.OK);
 
     }
+    */
 }
