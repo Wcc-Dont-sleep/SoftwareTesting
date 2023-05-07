@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @RestController
@@ -41,7 +44,12 @@ public class MetricDbController {
         {
             NewMetric data = datatList.get(i);
             Map tmp = new HashMap();
-            tmp.put("time",data.datetime);
+            Long datestamp = Long.parseLong(data.datetime);
+            LocalDateTime dateTime = LocalDateTime.ofEpochSecond(datestamp, 0,
+                    ZoneOffset.UTC); // 将时间戳转换为LocalDateTime对象
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // 定义日期时间格式
+            String formattedDateTime = dateTime.format(formatter); // 将LocalDateTime对象格式化为字符串
+            tmp.put("time",formattedDateTime);
             tmp.put("score",data.score);
             tmp.put("value",data.value);
             resultList.add(tmp);

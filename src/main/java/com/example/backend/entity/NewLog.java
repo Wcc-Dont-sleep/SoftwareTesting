@@ -15,4 +15,5 @@ public class NewLog {
     private String Content;
     private String isError;
 
+    private String status;
 }

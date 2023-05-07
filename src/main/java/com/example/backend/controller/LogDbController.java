@@ -42,6 +42,10 @@ public class LogDbController {
         String TableName = status+"_" + dataset;
 
         List<NewLog> resultList = mongoTemplate.find(query, NewLog.class, TableName);
+        for (NewLog result:resultList
+             ) {
+            result.setStatus(status);
+        }
         res.put("logging",resultList);
         res.put("probability",0.9);
         res.put("threshold",null);
