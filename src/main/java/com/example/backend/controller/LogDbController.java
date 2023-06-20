@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.backend.dto.AlertStatusDto;
 import com.example.backend.entity.*;
 import com.example.backend.entity.HDFSEntity;
+import com.example.backend.service.LogDbService;
 import org.apache.catalina.connector.Response;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -22,9 +23,9 @@ import java.util.*;
 
 @RestController
 public class LogDbController {
+    LogDbService logDbService;
     @Autowired
-    MongoTemplate mongoTemplate;
-
+    public LogDbController(LogDbService logDbService){this.logDbService = logDbService;}
     @RequestMapping(value = "log/mongo",method  = RequestMethod.GET)
     public ResponseEntity<String> getLog(
             @RequestParam(required = false) String dataset,
@@ -35,17 +36,10 @@ public class LogDbController {
             throws IOException
     {
 
-        Query query = new Query();
-        MyLog log = new MyLog();
-        System.out.println(model);
-        Map res = new HashMap<>();
-        String TableName = status+"_" + dataset;
 
-        List<NewLog> resultList = mongoTemplate.find(query, NewLog.class, TableName);
-        for (NewLog result:resultList
-             ) {
-            result.setStatus(status);
-        }
+        Map res = new HashMap<>();
+        List<NewLog> resultList = logDbService.getLog(status,dataset);
+
         res.put("logging",resultList);
         res.put("probability",0.9);
         res.put("threshold",null);

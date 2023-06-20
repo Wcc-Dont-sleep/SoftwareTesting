@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.backend.dto.AlertStatusDto;
 import com.example.backend.entity.AlertEntity;
+import com.example.backend.service.AlertService;
 import org.apache.catalina.connector.Response;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -24,9 +25,9 @@ import java.util.List;
 
 @RestController
 public class AlertController {
-
+    AlertService alertService;
     @Autowired
-    MongoTemplate mongoTemplate;
+    public AlertController(AlertService alertService){this.alertService = alertService;}
 
     @RequestMapping(value = "alarms", method = RequestMethod.GET)
     public ResponseEntity<String> getAlerts(
@@ -34,42 +35,9 @@ public class AlertController {
             @RequestParam(required = false, defaultValue = "9999999999") Long end_time)
             throws IOException
     {
-        Query query = Query.query(Criteria.where("time")
-                .lte(end_time)
-                .gte(start_time)
-        );
-
-        List<AlertEntity> resultList = mongoTemplate.find(query, AlertEntity.class, "Test");
+       List<AlertEntity> resultList = alertService.getAlert(start_time,end_time);
 //        System.out.println(resultList);
         return new ResponseEntity<String>(JSON.toJSONString(resultList), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "alarm", method = RequestMethod.POST)
-    public ResponseEntity postAlerts(
-            @RequestBody AlertStatusDto body
-    )
-    {
-        Query query = Query.query(Criteria.where("id")
-                .is(body.getId())
-        );
-
-        List<AlertEntity> list = mongoTemplate.find(query, AlertEntity.class, "Test");
-        if (list.size() == 0) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        } else {
-            Update update = Update.update("status", body.getStatus());
-            mongoTemplate.updateFirst(query, update, AlertEntity.class, "Test");
-            return new ResponseEntity(HttpStatus.OK);
-        }
-    }
-
-    @RequestMapping(value = "alert/entity",method = RequestMethod.GET)
-    public ResponseEntity getAlertByEntity(
-            @RequestParam(required = true)String entityName)
-    {
-        Query query = Query.query(Criteria.where("entity_name")
-                .is(entityName));
-        List<AlertEntity> alertList = mongoTemplate.find(query,AlertEntity.class,"Test");
-        return new ResponseEntity<String>(JSON.toJSONString(alertList), HttpStatus.OK);
-    }
 }
